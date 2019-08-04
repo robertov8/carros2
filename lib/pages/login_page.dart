@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
-  final _tLogin = TextEditingController(text: 'roberto');
-  final _tSenha = TextEditingController(text: '123');
+  final _tLogin = TextEditingController(text: '');
+  final _tSenha = TextEditingController(text: '');
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -12,18 +13,35 @@ class LoginPage extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(16),
-        child: _body(),
+        child: _body(context),
       ),
     );
   }
 
-  _body() {
+  String _validateLogin(String text) {
+    if (text.isEmpty) {
+      return 'Informe o login';
+    }
+
+    return null;
+  }
+
+  String _validateSenha(String text) {
+    if (text.length < 2) {
+      return 'Senha precisa ter mais de 2 números';
+    }
+
+    return null;
+  }
+
+  _body(BuildContext context) {
     return Form(
+      key: _formKey,
       child: ListView(
         children: <Widget>[
           _textFormFieldLogin(),
           _textFormFieldPassword(),
-          _loginButton(),
+          _loginButton(context),
         ],
       ),
     );
@@ -32,6 +50,7 @@ class LoginPage extends StatelessWidget {
   TextFormField _textFormFieldLogin() {
     return TextFormField(
       controller: _tLogin,
+      validator: _validateLogin,
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
         labelText: 'Login',
@@ -49,6 +68,7 @@ class LoginPage extends StatelessWidget {
   TextFormField _textFormFieldPassword() {
     return TextFormField(
       controller: _tSenha,
+      validator: _validateSenha,
       obscureText: true,
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
@@ -64,12 +84,12 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  _loginButton() {
+  _loginButton(BuildContext context) {
     return Container(
       height: 50,
       margin: EdgeInsets.only(top: 20),
       child: RaisedButton(
-        onPressed: () => _onClickLogin(),
+        onPressed: () => _onClickLogin(context),
         color: Colors.blue,
         child: Text(
           'Login',
@@ -79,10 +99,14 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  _onClickLogin() {
+  _onClickLogin(BuildContext context) {
     final login = _tLogin.text;
     final senha = _tSenha.text;
 
     print('Login: $login, $senha');
+
+    if (! _formKey.currentState.validate()) {
+      return;
+    }
   }
 }
