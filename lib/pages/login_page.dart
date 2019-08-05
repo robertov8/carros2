@@ -2,10 +2,16 @@ import 'package:carros/alerts.dart';
 import 'package:carros/domain/login_service.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final _tLogin = TextEditingController(text: '');
   final _tSenha = TextEditingController(text: '');
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  var _progress = false;
 
   @override
   Widget build(BuildContext context) {
@@ -93,11 +99,21 @@ class LoginPage extends StatelessWidget {
       child: RaisedButton(
         onPressed: () => _onClickLogin(context),
         color: Colors.blue,
-        child: Text(
-          'Login',
-          style: TextStyle(color: Colors.white, fontSize: 25),
-        ),
+        child: _progress ? _loginButtonCircularProgress() : _loginButtonText(),
       ),
+    );
+  }
+
+  _loginButtonText() {
+    return Text(
+      'Login',
+      style: TextStyle(color: Colors.white, fontSize: 25),
+    );
+  }
+
+  _loginButtonCircularProgress() {
+    return CircularProgressIndicator(
+      valueColor: AlwaysStoppedAnimation(Colors.white),
     );
   }
 
@@ -111,6 +127,10 @@ class LoginPage extends StatelessWidget {
 
     print('Login: $login, $senha');
 
+    setState(() {
+      _progress = true;
+    });
+
     final response = await LoginService.login(login, senha);
 
     if (response.isOk()) {
@@ -118,5 +138,9 @@ class LoginPage extends StatelessWidget {
     } else {
       alert(context, 'Erro', response.msg);
     }
+
+    setState(() {
+      _progress = false;
+    });
   }
 }
