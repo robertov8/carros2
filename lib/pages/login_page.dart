@@ -111,12 +111,12 @@ class LoginPage extends StatelessWidget {
 
     print('Login: $login, $senha');
 
-    final ok = await LoginService.login(login, senha);
+    final response = await LoginService.login(login, senha);
 
-    if (ok) {
-      print('Entrar na home.');
+    if (response.isOk()) {
+      print('Entrar na home!!!.');
     } else {
-      alert(context, 'Erro', 'Erro de login');
+      alert(context, 'Erro', response.msg);
     }
   }
 }
