@@ -1,5 +1,7 @@
-import 'package:carros/alerts.dart';
+import 'package:carros/utils/alerts.dart';
 import 'package:carros/domain/login_service.dart';
+import 'package:carros/pages/home_page.dart';
+import 'package:carros/utils/nav.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -134,6 +136,7 @@ class _LoginPageState extends State<LoginPage> {
     final response = await LoginService.login(login, senha);
 
     if (response.isOk()) {
+      pushReplacement(context, HomePage());
       print('Entrar na home!!!.');
     } else {
       alert(context, 'Erro', response.msg);
