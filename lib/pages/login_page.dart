@@ -1,3 +1,5 @@
+import 'package:carros/alerts.dart';
+import 'package:carros/domain/login_service.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -99,14 +101,22 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  _onClickLogin(BuildContext context) {
+  _onClickLogin(BuildContext context) async {
     final login = _tLogin.text;
     final senha = _tSenha.text;
 
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
+
     print('Login: $login, $senha');
 
-    if (! _formKey.currentState.validate()) {
-      return;
+    final ok = await LoginService.login(login, senha);
+
+    if (ok) {
+      print('Entrar na home.');
+    } else {
+      alert(context, 'Erro', 'Erro de login');
     }
   }
 }
