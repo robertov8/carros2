@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
           final carro = carros[index];
 
           return Container(
-            height: 150,
+            height: 250,
             child: Card(
               child: _listTile(carro),
             ),
@@ -37,23 +37,22 @@ class HomePage extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        ListTile(
-          leading: Image.network(
-            carro.urlFoto,
-            width: 150,
-          ),
-          title: Text(
-            carro.nome,
-            style: TextStyle(
-              color: Colors.blue,
-              fontSize: 25,
-            ),
-          ),
-          subtitle: Text(
-            "descrição",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 16,
+        Expanded(
+          flex: 9,
+          child: Image.network(carro.urlFoto),
+        ),
+        Expanded(
+          flex: 3,
+          child: Container(
+            color: Colors.grey,
+            child: Center(
+              child: Text(
+                carro.nome,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 25
+                ),
+              ),
             ),
           ),
         ),
@@ -75,3 +74,26 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+/*
+ListTile(
+          leading: Image.network(
+            carro.urlFoto,
+            width: 150,
+          ),
+          title: Text(
+            carro.nome,
+            style: TextStyle(
+              color: Colors.blue,
+              fontSize: 25,
+            ),
+          ),
+          subtitle: Text(
+            "descrição",
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 16,
+            ),
+          ),
+        ),
+*/
