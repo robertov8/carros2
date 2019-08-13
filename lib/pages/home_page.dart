@@ -25,7 +25,6 @@ class HomePage extends StatelessWidget {
           final carro = carros[index];
 
           return Container(
-            height: 250,
             child: Card(
               child: _listTile(carro),
             ),
@@ -37,24 +36,23 @@ class HomePage extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Expanded(
-          flex: 9,
-          child: Image.network(carro.urlFoto),
-        ),
-        Expanded(
-          flex: 3,
-          child: Container(
-            color: Colors.grey,
-            child: Center(
-              child: Text(
-                carro.nome,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25
+        Stack(
+          alignment: Alignment.topCenter,
+          children: <Widget>[
+            Image.network(carro.urlFoto),
+            Container(
+              color: Colors.black45,
+              child: Center(
+                child: Text(
+                  carro.nome,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25
+                  ),
                 ),
               ),
-            ),
-          ),
+            )
+          ],
         ),
         ButtonTheme.bar(
           child: ButtonBar(
