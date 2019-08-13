@@ -33,42 +33,42 @@ class HomePage extends StatelessWidget {
   }
 
   _listTile(Carro carro) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Stack(
-          alignment: Alignment.topCenter,
-          children: <Widget>[
-            Image.network(carro.urlFoto),
-            Container(
-              color: Colors.black45,
-              child: Center(
-                child: Text(
-                  carro.nome,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25
-                  ),
-                ),
-              ),
-            )
-          ],
-        ),
-        ButtonTheme.bar(
-          child: ButtonBar(
-            children: <Widget>[
-              FlatButton(
-                onPressed: () {},
-                child: const Text('DETALHES'),
-              ),
-              FlatButton(
-                onPressed: () {},
-                child: const Text('SHARE'),
-              ),
-            ],
+    return Padding(
+      padding: const EdgeInsets.only(left: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Image.network(carro.urlFoto),
+          Text(
+            carro.nome,
+            style: TextStyle(
+                color: Colors.black,
+                fontSize: 25
+            ),
           ),
-        )
-      ],
+          Text(
+            'Descrição...',
+            style: TextStyle(
+                color: Colors.black,
+                fontSize: 16
+            ),
+          ),
+          ButtonTheme.bar(
+            child: ButtonBar(
+              children: <Widget>[
+                FlatButton(
+                  onPressed: () {},
+                  child: const Text('DETALHES'),
+                ),
+                FlatButton(
+                  onPressed: () {},
+                  child: const Text('SHARE'),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
